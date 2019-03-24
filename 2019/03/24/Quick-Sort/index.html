@@ -8,17 +8,17 @@
   
     <meta name="keywords" content="Lujay,Lujay's Blog">
   
-  <meta name="description" content="$  // 快速排序算法 $   $  function partition(arr, low, high) { $      var pivokey = arr[low]; $      while (low &amp;lt; high) { $          while (low &amp;lt; high &amp;amp;&amp;amp; arr[high] &amp;gt;= pivokey) high--; $">
+  <meta name="description" content="123456789101112131415161718192021222324252627// 快速排序算法function partition(arr, low, high) &amp;#123;    var pivokey = arr[low];    while (low &amp;lt; high) &amp;#123;        while (low &amp;lt; high &amp;amp;&amp;amp; arr[hi">
 <meta property="og:type" content="article">
 <meta property="og:title" content="用js实现快速排序">
 <meta property="og:url" content="http://yoursite.com/2019/03/24/Quick-Sort/index.html">
 <meta property="og:site_name" content="Lujay&#39;s Blog">
-<meta property="og:description" content="$  // 快速排序算法 $   $  function partition(arr, low, high) { $      var pivokey = arr[low]; $      while (low &amp;lt; high) { $          while (low &amp;lt; high &amp;amp;&amp;amp; arr[high] &amp;gt;= pivokey) high--; $">
+<meta property="og:description" content="123456789101112131415161718192021222324252627// 快速排序算法function partition(arr, low, high) &amp;#123;    var pivokey = arr[low];    while (low &amp;lt; high) &amp;#123;        while (low &amp;lt; high &amp;amp;&amp;amp; arr[hi">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-03-24T01:36:19.999Z">
+<meta property="og:updated_time" content="2019-03-24T01:40:59.136Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="用js实现快速排序">
-<meta name="twitter:description" content="$  // 快速排序算法 $   $  function partition(arr, low, high) { $      var pivokey = arr[low]; $      while (low &amp;lt; high) { $          while (low &amp;lt; high &amp;amp;&amp;amp; arr[high] &amp;gt;= pivokey) high--; $">
+<meta name="twitter:description" content="123456789101112131415161718192021222324252627// 快速排序算法function partition(arr, low, high) &amp;#123;    var pivokey = arr[low];    while (low &amp;lt; high) &amp;#123;        while (low &amp;lt; high &amp;amp;&amp;amp; arr[hi">
   
   
   <link href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
@@ -136,38 +136,11 @@
     <div class="article-entry post-content" itemprop="articleBody">
       
             
-            <pre><code class="bash">$  // 快速排序算法
-$  
-$  <span class="keyword">function</span> partition(arr, low, high) {
-$      var pivokey = arr[low];
-$      <span class="keyword">while</span> (low &lt; high) {
-$          <span class="keyword">while</span> (low &lt; high &amp;&amp; arr[high] &gt;= pivokey) high--;
-$          [arr[low], arr[high]] = [arr[high], arr[low]];
-$          <span class="keyword">while</span> (low &lt; high &amp;&amp; arr[low] &lt;= pivokey) low++;
-$          [arr[low], arr[high]] = [arr[high], arr[low]];
-$      }
-$      <span class="built_in">return</span> low;
-$  }
-$  
-$  <span class="keyword">function</span> qSort(arr, low, high) {
-$      <span class="keyword">if</span> (low &lt; high) {
-$          var part = partition(arr, low, high);
-$          qSort(arr, low, part - 1);
-$          qSort(arr, part + 1, high);
-$      }
-$  }
-$  
-$  <span class="keyword">function</span> QuickSort(arr) {
-$      qSort(arr, 0, arr.length - 1);
-$      console.log(arr);
-$  }
-$  
-$  QuickSort([3, 2, 3, 1, 234, 35, 55, 32, 66, 23, 77, 89])
-</code></pre>
+            <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">// 快速排序算法</span><br><span class="line"></span><br><span class="line"><span class="keyword">function</span> partition(arr, low, high) &#123;</span><br><span class="line">    var pivokey = arr[low];</span><br><span class="line">    <span class="keyword">while</span> (low &lt; high) &#123;</span><br><span class="line">        <span class="keyword">while</span> (low &lt; high &amp;&amp; arr[high] &gt;= pivokey) high--;</span><br><span class="line">        [arr[low], arr[high]] = [arr[high], arr[low]];</span><br><span class="line">        <span class="keyword">while</span> (low &lt; high &amp;&amp; arr[low] &lt;= pivokey) low++;</span><br><span class="line">        [arr[low], arr[high]] = [arr[high], arr[low]];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">return</span> low;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">function</span> qSort(arr, low, high) &#123;</span><br><span class="line">    <span class="keyword">if</span> (low &lt; high) &#123;</span><br><span class="line">        var part = partition(arr, low, high);</span><br><span class="line">        qSort(arr, low, part - 1);</span><br><span class="line">        qSort(arr, part + 1, high);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">function</span> QuickSort(arr) &#123;</span><br><span class="line">    qSort(arr, 0, arr.length - 1);</span><br><span class="line">    console.log(arr);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">QuickSort([3, 2, 3, 1, 234, 35, 55, 32, 66, 23, 77, 89])</span><br></pre></td></tr></table></figure>
 
             <div class="post-copyright">
     <div class="content">
-        <p>最后更新： 2019年03月24日 09:36</p>
+        <p>最后更新： 2019年03月24日 09:40</p>
         <p>原始链接： <a class="post-url" href="/2019/03/24/Quick-Sort/" title="用js实现快速排序">http://yoursite.com/2019/03/24/Quick-Sort/</a></p>
         <footer>
             <a href="http://yoursite.com">
