@@ -1,5 +1,5 @@
 ---
-title: Hello World
+title: Hexo+Github搭建个人博客平台
 tags: 
     - Hexo
     - Github
