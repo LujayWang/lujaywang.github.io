@@ -38,9 +38,9 @@
     <category term="后端开发" scheme="https://lujaywang.github.io/categories/%E5%90%8E%E7%AB%AF%E5%BC%80%E5%8F%91/"/>
     
     
-    <category term="后端" scheme="https://lujaywang.github.io/tags/%E5%90%8E%E7%AB%AF/"/>
-    
     <category term="Linux" scheme="https://lujaywang.github.io/tags/Linux/"/>
+    
+    <category term="后端" scheme="https://lujaywang.github.io/tags/%E5%90%8E%E7%AB%AF/"/>
     
   </entry>
   
@@ -65,9 +65,9 @@
     <category term="后端开发" scheme="https://lujaywang.github.io/categories/%E5%90%8E%E7%AB%AF%E5%BC%80%E5%8F%91/"/>
     
     
-    <category term="Nginx" scheme="https://lujaywang.github.io/tags/Nginx/"/>
-    
     <category term="后端" scheme="https://lujaywang.github.io/tags/%E5%90%8E%E7%AB%AF/"/>
+    
+    <category term="Nginx" scheme="https://lujaywang.github.io/tags/Nginx/"/>
     
   </entry>
   
