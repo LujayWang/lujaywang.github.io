@@ -1238,7 +1238,7 @@ x();"bottom"===a.start?(c.css({top:b.outerHeight()-c.outerHeight()}),n(0,!0)):"t
     this.$element            = $(element)
     this.$dialog             = this.$element.find('.modal-dialog')
     this.$backdrop           = null
-    this.isShown             = null
+    this.isShown             = true
     this.originalBodyPad     = null
     this.scrollbarWidth      = 0
     this.ignoreBackdropClick = false
