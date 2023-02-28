@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://lujaywang.github.io/2023/02/28/bean%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F/</loc>
+    
+    <lastmod>2023-02-28</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://lujaywang.github.io/about/index.html</loc>
     
     <lastmod>2023-02-28</lastmod>
@@ -81,13 +88,6 @@
 
   
   <url>
-    <loc>https://lujaywang.github.io/tags/MySQL/</loc>
-    <lastmod>2023-02-28</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
     <loc>https://lujaywang.github.io/tags/%E5%90%8E%E7%AB%AF/</loc>
     <lastmod>2023-02-28</lastmod>
     <changefreq>daily</changefreq>
@@ -96,6 +96,13 @@
   
   <url>
     <loc>https://lujaywang.github.io/tags/Linux/</loc>
+    <lastmod>2023-02-28</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://lujaywang.github.io/tags/MySQL/</loc>
     <lastmod>2023-02-28</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
@@ -115,6 +122,13 @@
     <priority>0.6</priority>
   </url>
   
+  <url>
+    <loc>https://lujaywang.github.io/tags/spring/</loc>
+    <lastmod>2023-02-28</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
 
   
   <url>
@@ -126,6 +140,13 @@
   
   <url>
     <loc>https://lujaywang.github.io/categories/%E5%90%8E%E7%AB%AF%E5%BC%80%E5%8F%91/%E6%95%B0%E6%8D%AE%E5%BA%93/</loc>
+    <lastmod>2023-02-28</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://lujaywang.github.io/categories/%E5%90%8E%E7%AB%AF%E5%BC%80%E5%8F%91/spring/</loc>
     <lastmod>2023-02-28</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>

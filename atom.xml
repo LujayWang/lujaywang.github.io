@@ -6,7 +6,7 @@
   <link href="https://lujaywang.github.io/atom.xml" rel="self"/>
   
   <link href="https://lujaywang.github.io/"/>
-  <updated>2021-09-24T09:44:16.122Z</updated>
+  <updated>2023-02-28T16:41:18.602Z</updated>
   <id>https://lujaywang.github.io/</id>
   
   <author>
@@ -15,6 +15,34 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>bean生命周期</title>
+    <link href="https://lujaywang.github.io/2023/02/28/bean%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F/"/>
+    <id>https://lujaywang.github.io/2023/02/28/bean%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F/</id>
+    <published>2023-02-28T15:11:00.000Z</published>
+    <updated>2023-02-28T16:41:18.602Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="一、bean的生命周期"><a href="#一、bean的生命周期" class="headerlink" title="一、bean的生命周期"></a>一、bean的生命周期</h1><p>bean的生命周期即<strong>bean从创建到销毁的全过程</strong>，但总体可以分为<strong>bean定义、实例化、属性填充、初始化（afterPropertiesSet）、生存期、销毁</strong>六个阶段。</p><h1 id="二、图解bean的生命周期"><a href="#二、图解bean的生命周期" class="headerlink" title="二、图解bean的生命周期"></a>二、图解bean的生命周期</h1><p><img src="/images/bean%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F/4b4f352001d3ebdf02b29fbbcfe70468.png" alt="bean的生命周期"></p><ol><li><strong>bean定义</strong>：通过ComponentScan扫描类并生成BeanDefinition；</li><li><strong>实例化bean</strong>：根据BeanDefinition生成对应的bean；</li><li><strong>属性填充</strong>：依赖注入填充bean的属性值；</li><li><strong>初始化</strong>：实现aware接口，设置对应的值 –&gt;调用InitializingBean的afterPropertiesSet方法 –&gt; 调用&lt; bean &gt;的 init-method方法；</li><li><strong>生存期</strong>：执行BeanPostProccessor的postProcessAfterinitialization()方法 –&gt; 将单例bean存入单例池中 –&gt; 将bean给调用方使用；</li><li><strong>销毁</strong>：调用DisposableBean的destory()方法（和InitializingBean对应）–&gt;  调用&lt; bean &gt;的destory-method方法。</li></ol><p><strong>注意：</strong>AOP(object orient program)的底层实现原理是通过实现BeanPostProcessor的postProcessAfterinitialization()方法，通过cglib的字节码增强器（Enhancer）生成bean的代理对象，经过AOP生成的bean是bean的代理对象和根据BeanDefinition实例化的bean是两个不同的对象，也就会导致事务传播机制中会存在同一个类中事务传播失效的问题（后续专门补充章节介绍）。</p><h1 id="三、代码测试"><a href="#三、代码测试" class="headerlink" title="三、代码测试"></a>三、代码测试</h1><p>测试代码：</p><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"></span><br></pre></td></tr></table></figure><p>运行结果：</p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"></span><br></pre></td></tr></table></figure>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;h1 id=&quot;一、bean的生命周期&quot;&gt;&lt;a href=&quot;#一、bean的生命周期&quot; class=&quot;headerlink&quot; title=&quot;一、bean的生命周期&quot;&gt;&lt;/a&gt;一、bean的生命周期&lt;/h1&gt;&lt;p&gt;bean的生命周期即&lt;strong&gt;bean从创建到销毁的全过程&lt;/</summary>
+      
+    
+    
+    
+    <category term="后端开发" scheme="https://lujaywang.github.io/categories/%E5%90%8E%E7%AB%AF%E5%BC%80%E5%8F%91/"/>
+    
+    <category term="spring" scheme="https://lujaywang.github.io/categories/%E5%90%8E%E7%AB%AF%E5%BC%80%E5%8F%91/spring/"/>
+    
+    
+    <category term="后端" scheme="https://lujaywang.github.io/tags/%E5%90%8E%E7%AB%AF/"/>
+    
+    <category term="spring" scheme="https://lujaywang.github.io/tags/spring/"/>
+    
+  </entry>
   
   <entry>
     <title>MySQL的事务隔离级别及脏读、幻读、不可重复读</title>
@@ -38,9 +66,9 @@
     <category term="数据库" scheme="https://lujaywang.github.io/categories/%E5%90%8E%E7%AB%AF%E5%BC%80%E5%8F%91/%E6%95%B0%E6%8D%AE%E5%BA%93/"/>
     
     
-    <category term="MySQL" scheme="https://lujaywang.github.io/tags/MySQL/"/>
-    
     <category term="后端" scheme="https://lujaywang.github.io/tags/%E5%90%8E%E7%AB%AF/"/>
+    
+    <category term="MySQL" scheme="https://lujaywang.github.io/tags/MySQL/"/>
     
   </entry>
   
