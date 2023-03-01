@@ -4,7 +4,7 @@
   <url>
     <loc>https://lujaywang.github.io/2023/02/28/bean%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F/</loc>
     
-    <lastmod>2023-02-28</lastmod>
+    <lastmod>2023-03-01</lastmod>
     
   </url>
   
@@ -102,13 +102,6 @@
   </url>
   
   <url>
-    <loc>https://lujaywang.github.io/tags/spring/</loc>
-    <lastmod>2023-03-01</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
     <loc>https://lujaywang.github.io/tags/Linux/</loc>
     <lastmod>2023-03-01</lastmod>
     <changefreq>daily</changefreq>
@@ -124,6 +117,13 @@
   
   <url>
     <loc>https://lujaywang.github.io/tags/noSql/</loc>
+    <lastmod>2023-03-01</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://lujaywang.github.io/tags/spring/</loc>
     <lastmod>2023-03-01</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
