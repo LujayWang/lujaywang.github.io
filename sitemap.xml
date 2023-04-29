@@ -158,6 +158,13 @@
   </url>
   
   <url>
+    <loc>https://lujaywang.github.io/tags/%E4%BA%8B%E5%8A%A1/</loc>
+    <lastmod>2023-04-29</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
     <loc>https://lujaywang.github.io/tags/redis/</loc>
     <lastmod>2023-04-29</lastmod>
     <changefreq>daily</changefreq>
@@ -166,13 +173,6 @@
   
   <url>
     <loc>https://lujaywang.github.io/tags/noSql/</loc>
-    <lastmod>2023-04-29</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://lujaywang.github.io/tags/%E4%BA%8B%E5%8A%A1/</loc>
     <lastmod>2023-04-29</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
