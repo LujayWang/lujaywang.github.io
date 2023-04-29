@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://lujaywang.github.io/2023/04/29/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%EF%BC%888%EF%BC%89%E8%A3%85%E9%A5%B0%E8%80%85%E6%A8%A1%E5%BC%8F/</loc>
+    
+    <lastmod>2023-04-29</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://lujaywang.github.io/2023/04/27/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%EF%BC%887%EF%BC%89%E9%80%82%E9%85%8D%E5%99%A8%E6%A8%A1%E5%BC%8F/</loc>
     
     <lastmod>2023-04-27</lastmod>
@@ -151,27 +158,6 @@
   </url>
   
   <url>
-    <loc>https://lujaywang.github.io/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/</loc>
-    <lastmod>2023-04-29</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://lujaywang.github.io/tags/java/</loc>
-    <lastmod>2023-04-29</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://lujaywang.github.io/tags/%E4%BA%8B%E5%8A%A1/</loc>
-    <lastmod>2023-04-29</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
     <loc>https://lujaywang.github.io/tags/redis/</loc>
     <lastmod>2023-04-29</lastmod>
     <changefreq>daily</changefreq>
@@ -186,7 +172,28 @@
   </url>
   
   <url>
+    <loc>https://lujaywang.github.io/tags/%E4%BA%8B%E5%8A%A1/</loc>
+    <lastmod>2023-04-29</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
     <loc>https://lujaywang.github.io/tags/spring/</loc>
+    <lastmod>2023-04-29</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://lujaywang.github.io/tags/java/</loc>
+    <lastmod>2023-04-29</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://lujaywang.github.io/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/</loc>
     <lastmod>2023-04-29</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
@@ -202,14 +209,14 @@
   </url>
   
   <url>
-    <loc>https://lujaywang.github.io/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/</loc>
+    <loc>https://lujaywang.github.io/categories/spring/</loc>
     <lastmod>2023-04-29</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
-    <loc>https://lujaywang.github.io/categories/spring/</loc>
+    <loc>https://lujaywang.github.io/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/</loc>
     <lastmod>2023-04-29</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
