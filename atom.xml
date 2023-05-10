@@ -6,7 +6,7 @@
   <link href="https://lujaywang.github.io/atom.xml" rel="self"/>
   
   <link href="https://lujaywang.github.io/"/>
-  <updated>2023-05-09T17:35:45.521Z</updated>
+  <updated>2023-05-10T13:26:45.947Z</updated>
   <id>https://lujaywang.github.io/</id>
   
   <author>
@@ -15,6 +15,32 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>设计模式（15）责任链模式</title>
+    <link href="https://lujaywang.github.io/2023/05/10/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%EF%BC%8815%EF%BC%89%E8%B4%A3%E4%BB%BB%E9%93%BE%E6%A8%A1%E5%BC%8F/"/>
+    <id>https://lujaywang.github.io/2023/05/10/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%EF%BC%8815%EF%BC%89%E8%B4%A3%E4%BB%BB%E9%93%BE%E6%A8%A1%E5%BC%8F/</id>
+    <published>2023-05-10T10:30:12.000Z</published>
+    <updated>2023-05-10T13:26:45.947Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="什么是责任链模式"><a href="#什么是责任链模式" class="headerlink" title="什么是责任链模式"></a>什么是责任链模式</h1><p>在<strong>责任链模式</strong>里，很多对象由每一个对象对其下家的引用而连接起来形成一条链。请求在这个链上传递，直到链上的某一个对象决定处理此请求。发出这个请求的客户端并不知道链上的哪一个对象最终处理这个请求，这使得系统可以在不影响客户端的情况下动态地重新组织和分配责任。</p><p><strong>UML类图</strong><br><img src="/images/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%EF%BC%8815%EF%BC%89%E8%B4%A3%E4%BB%BB%E9%93%BE%E6%A8%A1%E5%BC%8F/2021-chain-of-responsibility.svg" alt="责任链模式的 UML 图"></p><h1 id="案例及代码实现"><a href="#案例及代码实现" class="headerlink" title="案例及代码实现"></a>案例及代码实现</h1><h2 id="案例"><a href="#案例" class="headerlink" title="案例"></a>案例</h2><p>​        学校物品采购需要被审批，假设物品金额小于等于100元只需要老师进行审批，大于100元小于等于500元需要教务处主任进行审批，500元以上的需要校长进行审批。使用传统的方式，我们需要使用if…else…进行多层判断，在比较复杂的场景下，会使得逻辑混乱，不利于维护和扩展。而使用责任链模式可以更好的进行扩展，并使得逻辑更加清晰。</p><h2 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h2><p>AbstractApprove.java</p><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="class"><span class="keyword">class</span> <span class="title">AbstractApprove</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> AbstractApprove nextApprove;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">protected</span> <span class="keyword">int</span> money;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="keyword">boolean</span> <span class="title">isSupport</span><span class="params">()</span></span>;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="keyword">void</span> <span class="title">execute</span><span class="params">()</span></span>;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">approve</span><span class="params">(<span class="keyword">int</span> money)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.money = money;</span><br><span class="line">        <span class="keyword">if</span> (isSupport()) &#123;</span><br><span class="line">            execute();</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            nextApprove.approve(money);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setNextApprove</span><span class="params">(AbstractApprove nextApprove)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.nextApprove = nextApprove;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>TeacherApprove.java</p><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">TeacherApprove</span> <span class="keyword">extends</span> <span class="title">AbstractApprove</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">isSupport</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> money &gt;= <span class="number">0</span> &amp;&amp; money &lt;= <span class="number">100</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">execute</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;老师审批&quot;</span> + money + <span class="string">&quot;元金额物品购买申请通过！&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>DirectorApprove.java</p><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">DirectorApprove</span> <span class="keyword">extends</span> <span class="title">AbstractApprove</span></span>&#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">isSupport</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> money &gt; <span class="number">100</span> &amp;&amp; money &lt;= <span class="number">500</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">execute</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;主任审批&quot;</span> + money + <span class="string">&quot;元金额物品购买申请通过！&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>HeaderTeacherApprove.java</p><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">HeaderTeacherApprove</span> <span class="keyword">extends</span> <span class="title">AbstractApprove</span></span>&#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">isSupport</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> money &gt; <span class="number">500</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">execute</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;校长审批&quot;</span> + money + <span class="string">&quot;元金额物品购买申请通过！&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>Client.java</p><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Client</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        TeacherApprove teacherApprove = <span class="keyword">new</span> TeacherApprove();</span><br><span class="line">        DirectorApprove directorApprove = <span class="keyword">new</span> DirectorApprove();</span><br><span class="line">        HeaderTeacherApprove headerTeacherApprove = <span class="keyword">new</span> HeaderTeacherApprove();</span><br><span class="line">        <span class="comment">// 形成责任链闭环</span></span><br><span class="line">        teacherApprove.setNextApprove(directorApprove);</span><br><span class="line">        directorApprove.setNextApprove(headerTeacherApprove);</span><br><span class="line">        headerTeacherApprove.setNextApprove(teacherApprove);</span><br><span class="line">        headerTeacherApprove.approve(<span class="number">100</span>);</span><br><span class="line">        directorApprove.approve(<span class="number">1000</span>);</span><br><span class="line">        teacherApprove.approve(<span class="number">230</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>运行程序，输出结果：</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">老师审批100元金额物品购买申请通过！</span><br><span class="line">校长审批1000元金额物品购买申请通过！</span><br><span class="line">主任审批230元金额物品购买申请通过！</span><br></pre></td></tr></table></figure><h1 id="应用场景"><a href="#应用场景" class="headerlink" title="应用场景"></a>应用场景</h1><ol><li>过滤器链FilterChain；</li><li>SpringMVC拦截器链。</li></ol>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;h1 id=&quot;什么是责任链模式&quot;&gt;&lt;a href=&quot;#什么是责任链模式&quot; class=&quot;headerlink&quot; title=&quot;什么是责任链模式&quot;&gt;&lt;/a&gt;什么是责任链模式&lt;/h1&gt;&lt;p&gt;在&lt;strong&gt;责任链模式&lt;/strong&gt;里，很多对象由每一个对象对其下家的引用而连接起</summary>
+      
+    
+    
+    
+    <category term="设计模式" scheme="https://lujaywang.github.io/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
+    
+    
+    <category term="java" scheme="https://lujaywang.github.io/tags/java/"/>
+    
+    <category term="设计模式" scheme="https://lujaywang.github.io/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
+    
+  </entry>
   
   <entry>
     <title>设计模式（14）命令模式</title>
@@ -36,9 +62,9 @@
     <category term="设计模式" scheme="https://lujaywang.github.io/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
     
     
-    <category term="设计模式" scheme="https://lujaywang.github.io/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
-    
     <category term="java" scheme="https://lujaywang.github.io/tags/java/"/>
+    
+    <category term="设计模式" scheme="https://lujaywang.github.io/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
     
   </entry>
   
@@ -62,9 +88,9 @@
     <category term="设计模式" scheme="https://lujaywang.github.io/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
     
     
-    <category term="设计模式" scheme="https://lujaywang.github.io/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
-    
     <category term="java" scheme="https://lujaywang.github.io/tags/java/"/>
+    
+    <category term="设计模式" scheme="https://lujaywang.github.io/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
     
   </entry>
   
@@ -88,9 +114,9 @@
     <category term="设计模式" scheme="https://lujaywang.github.io/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
     
     
-    <category term="设计模式" scheme="https://lujaywang.github.io/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
-    
     <category term="java" scheme="https://lujaywang.github.io/tags/java/"/>
+    
+    <category term="设计模式" scheme="https://lujaywang.github.io/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
     
   </entry>
   
@@ -114,9 +140,9 @@
     <category term="设计模式" scheme="https://lujaywang.github.io/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
     
     
-    <category term="设计模式" scheme="https://lujaywang.github.io/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
-    
     <category term="java" scheme="https://lujaywang.github.io/tags/java/"/>
+    
+    <category term="设计模式" scheme="https://lujaywang.github.io/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
     
   </entry>
   
@@ -140,9 +166,9 @@
     <category term="设计模式" scheme="https://lujaywang.github.io/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
     
     
-    <category term="设计模式" scheme="https://lujaywang.github.io/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
-    
     <category term="java" scheme="https://lujaywang.github.io/tags/java/"/>
+    
+    <category term="设计模式" scheme="https://lujaywang.github.io/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
     
   </entry>
   
@@ -166,9 +192,9 @@
     <category term="设计模式" scheme="https://lujaywang.github.io/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
     
     
-    <category term="设计模式" scheme="https://lujaywang.github.io/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
-    
     <category term="java" scheme="https://lujaywang.github.io/tags/java/"/>
+    
+    <category term="设计模式" scheme="https://lujaywang.github.io/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
     
   </entry>
   
@@ -192,9 +218,9 @@
     <category term="设计模式" scheme="https://lujaywang.github.io/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
     
     
-    <category term="设计模式" scheme="https://lujaywang.github.io/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
-    
     <category term="java" scheme="https://lujaywang.github.io/tags/java/"/>
+    
+    <category term="设计模式" scheme="https://lujaywang.github.io/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
     
   </entry>
   
@@ -218,9 +244,9 @@
     <category term="设计模式" scheme="https://lujaywang.github.io/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
     
     
-    <category term="设计模式" scheme="https://lujaywang.github.io/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
-    
     <category term="java" scheme="https://lujaywang.github.io/tags/java/"/>
+    
+    <category term="设计模式" scheme="https://lujaywang.github.io/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
     
   </entry>
   
@@ -244,9 +270,9 @@
     <category term="设计模式" scheme="https://lujaywang.github.io/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
     
     
-    <category term="设计模式" scheme="https://lujaywang.github.io/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
-    
     <category term="java" scheme="https://lujaywang.github.io/tags/java/"/>
+    
+    <category term="设计模式" scheme="https://lujaywang.github.io/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
     
   </entry>
   
@@ -270,9 +296,9 @@
     <category term="设计模式" scheme="https://lujaywang.github.io/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
     
     
-    <category term="设计模式" scheme="https://lujaywang.github.io/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
-    
     <category term="java" scheme="https://lujaywang.github.io/tags/java/"/>
+    
+    <category term="设计模式" scheme="https://lujaywang.github.io/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
     
   </entry>
   
@@ -296,9 +322,9 @@
     <category term="设计模式" scheme="https://lujaywang.github.io/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
     
     
-    <category term="设计模式" scheme="https://lujaywang.github.io/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
-    
     <category term="java" scheme="https://lujaywang.github.io/tags/java/"/>
+    
+    <category term="设计模式" scheme="https://lujaywang.github.io/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
     
   </entry>
   
@@ -322,9 +348,9 @@
     <category term="设计模式" scheme="https://lujaywang.github.io/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
     
     
-    <category term="设计模式" scheme="https://lujaywang.github.io/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
-    
     <category term="java" scheme="https://lujaywang.github.io/tags/java/"/>
+    
+    <category term="设计模式" scheme="https://lujaywang.github.io/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
     
   </entry>
   
@@ -348,9 +374,9 @@
     <category term="设计模式" scheme="https://lujaywang.github.io/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
     
     
-    <category term="设计模式" scheme="https://lujaywang.github.io/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
-    
     <category term="java" scheme="https://lujaywang.github.io/tags/java/"/>
+    
+    <category term="设计模式" scheme="https://lujaywang.github.io/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
     
   </entry>
   
@@ -375,9 +401,9 @@
     <category term="设计模式" scheme="https://lujaywang.github.io/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
     
     
-    <category term="设计模式" scheme="https://lujaywang.github.io/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
-    
     <category term="java" scheme="https://lujaywang.github.io/tags/java/"/>
+    
+    <category term="设计模式" scheme="https://lujaywang.github.io/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
     
   </entry>
   
@@ -425,9 +451,9 @@
     <category term="spring" scheme="https://lujaywang.github.io/categories/spring/"/>
     
     
-    <category term="java" scheme="https://lujaywang.github.io/tags/java/"/>
-    
     <category term="spring" scheme="https://lujaywang.github.io/tags/spring/"/>
+    
+    <category term="java" scheme="https://lujaywang.github.io/tags/java/"/>
     
   </entry>
   
@@ -451,9 +477,9 @@
     <category term="数据库" scheme="https://lujaywang.github.io/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/"/>
     
     
-    <category term="MySQL" scheme="https://lujaywang.github.io/tags/MySQL/"/>
-    
     <category term="数据库" scheme="https://lujaywang.github.io/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/"/>
+    
+    <category term="MySQL" scheme="https://lujaywang.github.io/tags/MySQL/"/>
     
     <category term="事务" scheme="https://lujaywang.github.io/tags/%E4%BA%8B%E5%8A%A1/"/>
     
