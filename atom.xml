@@ -6,7 +6,7 @@
   <link href="https://lujaywang.github.io/atom.xml" rel="self"/>
   
   <link href="https://lujaywang.github.io/"/>
-  <updated>2023-05-15T15:16:04.329Z</updated>
+  <updated>2023-05-21T15:31:30.975Z</updated>
   <id>https://lujaywang.github.io/</id>
   
   <author>
@@ -15,6 +15,58 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>设计模式（18）策略模式</title>
+    <link href="https://lujaywang.github.io/2023/05/21/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%EF%BC%8818%EF%BC%89%E7%AD%96%E7%95%A5%E6%A8%A1%E5%BC%8F/"/>
+    <id>https://lujaywang.github.io/2023/05/21/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%EF%BC%8818%EF%BC%89%E7%AD%96%E7%95%A5%E6%A8%A1%E5%BC%8F/</id>
+    <published>2023-05-21T10:30:59.000Z</published>
+    <updated>2023-05-21T15:31:30.975Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="什么是策略模式"><a href="#什么是策略模式" class="headerlink" title="什么是策略模式"></a>什么是策略模式</h1><p><strong>策略模式</strong>作为一种<a href="https://baike.baidu.com/item/%E8%BD%AF%E4%BB%B6%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F?fromModule=lemma_inlink">软件设计模式</a>，指对象有某个行为，但是在不同的场景中，该行为有不同的实现算法。比如每个人都要“交个人所得税”，但是“在美国交个人所得税”和“在中国交个人所得税”就有不同的算税方法。</p><p><strong>策略模式</strong>：</p><ul><li>定义了一组算法（业务规则）；</li><li>封装了每个算法；</li><li>这族的算法可互换代替（interchangeable）。</li></ul><p><strong>UML类图</strong></p><p><img src="/images/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%EF%BC%8818%EF%BC%89%E7%AD%96%E7%95%A5%E6%A8%A1%E5%BC%8F/watermark,image_d2F0ZXIvYmFpa2UyMjA=,g_7,xp_5,yp_5.png" alt="img"></p><h1 id="案例及代码实现"><a href="#案例及代码实现" class="headerlink" title="案例及代码实现"></a>案例及代码实现</h1><h2 id="案例"><a href="#案例" class="headerlink" title="案例"></a>案例</h2><p>​        鸭子的种类有很多种，比如北京鸭，野鸭，家养鸭，宠物鸭，唐老鸭等等。有的鸭子会飞，有的鸭子不会飞。各种鸭子的叫声也各不相同，有的嘎嘎叫，有的咯咯叫。如果不同行为种类的鸭子都定义一个鸭子类，都要生成一个类的话，就需要很多的类来支持。因此我们可以通过将不同的行为抽离出来，不同种类的的鸭子只需要使用对应的行为策略进行生成，从而简化代码，同时使得代码逻辑更加清晰。</p><h2 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h2><p>FlyBehavior.java</p><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">FlyBehavior</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">fly</span><span class="params">()</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>FlyConcreteBehavior.java</p><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">FlyConcreteBehavior</span> <span class="keyword">implements</span> <span class="title">FlyBehavior</span></span>&#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">fly</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;我会飞翔&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>NoFlyBehavior.java</p><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">NoFlyBehavior</span> <span class="keyword">implements</span> <span class="title">FlyBehavior</span></span>&#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">fly</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;我不会飞翔&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>QuackBehavior.java</p><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">QuackBehavior</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">quack</span><span class="params">()</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>GagaQuackBehavior.java</p><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">GagaQuackBehavior</span> <span class="keyword">implements</span> <span class="title">QuackBehavior</span></span>&#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">quack</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;我会嘎嘎叫&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>GegeQuackBehavior.java</p><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">GegeQuackBehavior</span> <span class="keyword">implements</span> <span class="title">QuackBehavior</span></span>&#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">quack</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;我会咯咯叫&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>Duck.java</p><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Duck</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> FlyBehavior flyBehavior;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> QuackBehavior quackBehavior;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> String name;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Duck</span><span class="params">(String name)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.name = name;</span><br><span class="line">        <span class="keyword">this</span>.flyBehavior = <span class="keyword">new</span> NoFlyBehavior();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">print</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;我是&quot;</span> + name);</span><br><span class="line">        <span class="keyword">if</span> (flyBehavior != <span class="keyword">null</span>) &#123;</span><br><span class="line">            flyBehavior.fly();</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (quackBehavior != <span class="keyword">null</span>) &#123;</span><br><span class="line">            quackBehavior.quack();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setFlyBehavior</span><span class="params">(FlyBehavior flyBehavior)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.flyBehavior = flyBehavior;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setQuackBehavior</span><span class="params">(QuackBehavior quackBehavior)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.quackBehavior = quackBehavior;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>Client.java</p><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Client</span></span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        Duck beijingDuck = <span class="keyword">new</span> Duck(<span class="string">&quot;北京鸭&quot;</span>);</span><br><span class="line">        GagaQuackBehavior gagaQuackBehavior = <span class="keyword">new</span> GagaQuackBehavior();</span><br><span class="line">        beijingDuck.setQuackBehavior(gagaQuackBehavior);</span><br><span class="line">        beijingDuck.print();</span><br><span class="line">        System.out.println(<span class="string">&quot;============&quot;</span>);</span><br><span class="line">        Duck wildDuck = <span class="keyword">new</span> Duck(<span class="string">&quot;野鸭&quot;</span>);</span><br><span class="line">        GegeQuackBehavior gegeQuackBehavior = <span class="keyword">new</span> GegeQuackBehavior();</span><br><span class="line">        FlyConcreteBehavior flyConcreteBehavior = <span class="keyword">new</span> FlyConcreteBehavior();</span><br><span class="line">        wildDuck.setFlyBehavior(flyConcreteBehavior);</span><br><span class="line">        wildDuck.setQuackBehavior(gegeQuackBehavior);</span><br><span class="line">        wildDuck.print();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>运行程序，输出结果：</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">我是北京鸭</span><br><span class="line">我不会飞翔</span><br><span class="line">我会嘎嘎叫</span><br><span class="line">============</span><br><span class="line">我是野鸭</span><br><span class="line">我会飞翔</span><br><span class="line">我会咯咯叫</span><br></pre></td></tr></table></figure><h1 id="应用场景"><a href="#应用场景" class="headerlink" title="应用场景"></a>应用场景</h1><ol><li>Arrays.sort源码，根据不同的类型使用不同的排序方式；</li><li>Mybatis源码，不同的字段类型使用不同的类型处理器。</li></ol>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;h1 id=&quot;什么是策略模式&quot;&gt;&lt;a href=&quot;#什么是策略模式&quot; class=&quot;headerlink&quot; title=&quot;什么是策略模式&quot;&gt;&lt;/a&gt;什么是策略模式&lt;/h1&gt;&lt;p&gt;&lt;strong&gt;策略模式&lt;/strong&gt;作为一种&lt;a href=&quot;https://baike.ba</summary>
+      
+    
+    
+    
+    <category term="设计模式" scheme="https://lujaywang.github.io/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
+    
+    
+    <category term="java" scheme="https://lujaywang.github.io/tags/java/"/>
+    
+    <category term="设计模式" scheme="https://lujaywang.github.io/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>设计模式（17）中介者模式</title>
+    <link href="https://lujaywang.github.io/2023/05/15/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%EF%BC%8817%EF%BC%89%E4%B8%AD%E4%BB%8B%E8%80%85%E6%A8%A1%E5%BC%8F/"/>
+    <id>https://lujaywang.github.io/2023/05/15/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%EF%BC%8817%EF%BC%89%E4%B8%AD%E4%BB%8B%E8%80%85%E6%A8%A1%E5%BC%8F/</id>
+    <published>2023-05-15T12:30:41.000Z</published>
+    <updated>2023-05-21T15:27:15.590Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="什么是中介者模式"><a href="#什么是中介者模式" class="headerlink" title="什么是中介者模式"></a>什么是中介者模式</h1><p><strong>中介者模式</strong>：用一个中介者对象来封装一系列的对象交互，中介者使各对象不需要显示地相互引用，从而使其松散耦合，而且可以独立地改变它们之间的交互。</p><p><strong>中介者模式</strong>又叫<strong>调停者模式</strong></p><p><strong>UML类图</strong><br><img src="/images/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%EF%BC%8817%EF%BC%89%E4%B8%AD%E4%BB%8B%E8%80%85%E6%A8%A1%E5%BC%8F/v2-2757530b097845dd5d611dddfb5b5697_b.webp" alt="动图"></p><h1 id="案例及代码实现"><a href="#案例及代码实现" class="headerlink" title="案例及代码实现"></a>案例及代码实现</h1><h2 id="案例"><a href="#案例" class="headerlink" title="案例"></a>案例</h2><p>​        我们的日常生活中有很多中介，其中最常见的就是房屋中介。假设我们要租房，我们直接去找房东，可能房东是二房东，而二房东还需要去找真正的房屋主人，可能房屋主人还需要经过其他人的同意。用传统模式解决问题，这个过程越复杂逻辑就会越混乱，而如果有一个房屋中介在中间统一管理这些事情，所有人都在房屋中介处注册信息，有任何事情都可以通过找中介来转发处理，就可以使得租房过程中的各个角色解耦。中介者模式将对象间的一对多关联转变为一对一的关联，提高系统的灵活性，使得系统易于维护和扩展。</p><h2 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h2><p>Media.java</p><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">Media</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">register</span><span class="params">(String name, Colleague colleague)</span></span>;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">relay</span><span class="params">(String name, String msg)</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>Colleague.java</p><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="class"><span class="keyword">class</span> <span class="title">Colleague</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> Media media;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> String name;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Colleague</span><span class="params">(String name)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.name = name;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setMedia</span><span class="params">(Media media)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.media = media;</span><br><span class="line">        media.register(name, <span class="keyword">this</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">receive</span><span class="params">(String msg)</span> </span>&#123;</span><br><span class="line">        System.out.println(name + <span class="string">&quot;接受到消息：&quot;</span> + msg);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">send</span><span class="params">(String name, String msg)</span> </span>&#123;</span><br><span class="line">        media.relay(name, msg);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>HomeMedia.java</p><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">HomeMedia</span> <span class="keyword">implements</span> <span class="title">Media</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> Map&lt;String,Colleague&gt; colleagueMap;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">HomeMedia</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.colleagueMap = <span class="keyword">new</span> HashMap&lt;&gt;();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">register</span><span class="params">(String name, Colleague colleague)</span> </span>&#123;</span><br><span class="line">        colleagueMap.put(name, colleague);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">relay</span><span class="params">(String name, String msg)</span> </span>&#123;</span><br><span class="line">        colleagueMap.get(name).receive(msg);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>Tenant.java</p><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Tenant</span> <span class="keyword">extends</span> <span class="title">Colleague</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Tenant</span><span class="params">(String name)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">super</span>(name);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>SubLandlord.java</p><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SubLandlord</span> <span class="keyword">extends</span> <span class="title">Colleague</span></span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">SubLandlord</span><span class="params">(String name)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">super</span>(name);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>Landlord.java</p><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Landlord</span> <span class="keyword">extends</span> <span class="title">Colleague</span></span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Landlord</span><span class="params">(String name)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">super</span>(name);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>Client.java</p><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Client</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        <span class="comment">// 房屋中介</span></span><br><span class="line">        Media homeMedia = <span class="keyword">new</span> HomeMedia();</span><br><span class="line">        <span class="comment">// 租客</span></span><br><span class="line">        Colleague tenant = <span class="keyword">new</span> Tenant(<span class="string">&quot;tenant&quot;</span>);</span><br><span class="line">        tenant.setMedia(homeMedia);</span><br><span class="line">        <span class="comment">// 二房东</span></span><br><span class="line">        Colleague subLandlord = <span class="keyword">new</span> SubLandlord(<span class="string">&quot;sub-landlord&quot;</span>);</span><br><span class="line">        subLandlord.setMedia(homeMedia);</span><br><span class="line">        <span class="comment">// 房东</span></span><br><span class="line">        Colleague landlord = <span class="keyword">new</span> Landlord(<span class="string">&quot;landlord&quot;</span>);</span><br><span class="line">        landlord.setMedia(homeMedia);</span><br><span class="line">        tenant.send(<span class="string">&quot;sub-landlord&quot;</span>, <span class="string">&quot;我要租房子&quot;</span>);</span><br><span class="line">        subLandlord.send(<span class="string">&quot;landlord&quot;</span>, <span class="string">&quot;有人要租房子&quot;</span>);</span><br><span class="line">        landlord.send(<span class="string">&quot;sub-landlord&quot;</span>, <span class="string">&quot;你租吧&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>运行程序，输出结果：</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sub-landlord接受到消息：我要租房子</span><br><span class="line">landlord接受到消息：有人要租房子</span><br><span class="line">sub-landlord接受到消息：你租吧</span><br></pre></td></tr></table></figure><h1 id="应用场景"><a href="#应用场景" class="headerlink" title="应用场景"></a>应用场景</h1><ol><li>在分布式环境下，各种服务注册与发现组件，例如：Zookeeper，Nocas，Eruake等。</li></ol>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;h1 id=&quot;什么是中介者模式&quot;&gt;&lt;a href=&quot;#什么是中介者模式&quot; class=&quot;headerlink&quot; title=&quot;什么是中介者模式&quot;&gt;&lt;/a&gt;什么是中介者模式&lt;/h1&gt;&lt;p&gt;&lt;strong&gt;中介者模式&lt;/strong&gt;：用一个中介者对象来封装一系列的对象交互，中介者</summary>
+      
+    
+    
+    
+    <category term="设计模式" scheme="https://lujaywang.github.io/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
+    
+    
+    <category term="java" scheme="https://lujaywang.github.io/tags/java/"/>
+    
+    <category term="设计模式" scheme="https://lujaywang.github.io/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
+    
+  </entry>
   
   <entry>
     <title>设计模式（16）备忘录模式</title>
@@ -36,35 +88,9 @@
     <category term="设计模式" scheme="https://lujaywang.github.io/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
     
     
-    <category term="设计模式" scheme="https://lujaywang.github.io/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
-    
     <category term="java" scheme="https://lujaywang.github.io/tags/java/"/>
     
-  </entry>
-  
-  <entry>
-    <title>设计模式（17）中介者模式</title>
-    <link href="https://lujaywang.github.io/2023/05/15/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%EF%BC%8817%EF%BC%89%E4%B8%AD%E4%BB%8B%E8%80%85%E6%A8%A1%E5%BC%8F/"/>
-    <id>https://lujaywang.github.io/2023/05/15/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%EF%BC%8817%EF%BC%89%E4%B8%AD%E4%BB%8B%E8%80%85%E6%A8%A1%E5%BC%8F/</id>
-    <published>2023-05-15T10:30:41.000Z</published>
-    <updated>2023-05-17T16:12:52.697Z</updated>
-    
-    <content type="html"><![CDATA[<h1 id="什么是中介者模式"><a href="#什么是中介者模式" class="headerlink" title="什么是中介者模式"></a>什么是中介者模式</h1><p><strong>中介者模式</strong>：用一个中介者对象来封装一系列的对象交互，中介者使各对象不需要显示地相互引用，从而使其松散耦合，而且可以独立地改变它们之间的交互。</p><p><strong>中介者模式</strong>又叫<strong>调停者模式</strong></p><p><strong>UML类图</strong><br><img src="/images/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%EF%BC%8817%EF%BC%89%E4%B8%AD%E4%BB%8B%E8%80%85%E6%A8%A1%E5%BC%8F/v2-2757530b097845dd5d611dddfb5b5697_b.webp" alt="动图"></p><h1 id="案例及代码实现"><a href="#案例及代码实现" class="headerlink" title="案例及代码实现"></a>案例及代码实现</h1><h2 id="案例"><a href="#案例" class="headerlink" title="案例"></a>案例</h2><p>​        我们的日常生活中有很多中介，其中最常见的就是房屋中介。假设我们要租房，我们直接去找房东，可能房东是二房东，而二房东还需要去找真正的房屋主人，可能房屋主人还需要经过其他人的同意。用传统模式解决问题，这个过程越复杂逻辑就会越混乱，而如果有一个房屋中介在中间统一管理这些事情，所有人都在房屋中介处注册信息，有任何事情都可以通过找中介来转发处理，就可以使得租房过程中的各个角色解耦。中介者模式将对象间的一对多关联转变为一对一的关联，提高系统的灵活性，使得系统易于维护和扩展。</p><h2 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h2><p>Media.java</p><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">Media</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">register</span><span class="params">(String name, Colleague colleague)</span></span>;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">relay</span><span class="params">(String name, String msg)</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>Colleague.java</p><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="class"><span class="keyword">class</span> <span class="title">Colleague</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> Media media;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> String name;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Colleague</span><span class="params">(String name)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.name = name;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setMedia</span><span class="params">(Media media)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.media = media;</span><br><span class="line">        media.register(name, <span class="keyword">this</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">receive</span><span class="params">(String msg)</span> </span>&#123;</span><br><span class="line">        System.out.println(name + <span class="string">&quot;接受到消息：&quot;</span> + msg);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">send</span><span class="params">(String name, String msg)</span> </span>&#123;</span><br><span class="line">        media.relay(name, msg);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>HomeMedia.java</p><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">HomeMedia</span> <span class="keyword">implements</span> <span class="title">Media</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> Map&lt;String,Colleague&gt; colleagueMap;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">HomeMedia</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.colleagueMap = <span class="keyword">new</span> HashMap&lt;&gt;();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">register</span><span class="params">(String name, Colleague colleague)</span> </span>&#123;</span><br><span class="line">        colleagueMap.put(name, colleague);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">relay</span><span class="params">(String name, String msg)</span> </span>&#123;</span><br><span class="line">        colleagueMap.get(name).receive(msg);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>Tenant.java</p><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Tenant</span> <span class="keyword">extends</span> <span class="title">Colleague</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Tenant</span><span class="params">(String name)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">super</span>(name);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>SubLandlord.java</p><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SubLandlord</span> <span class="keyword">extends</span> <span class="title">Colleague</span></span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">SubLandlord</span><span class="params">(String name)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">super</span>(name);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>Landlord.java</p><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Landlord</span> <span class="keyword">extends</span> <span class="title">Colleague</span></span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Landlord</span><span class="params">(String name)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">super</span>(name);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>Client.java</p><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Client</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        <span class="comment">// 房屋中介</span></span><br><span class="line">        Media homeMedia = <span class="keyword">new</span> HomeMedia();</span><br><span class="line">        <span class="comment">// 租客</span></span><br><span class="line">        Colleague tenant = <span class="keyword">new</span> Tenant(<span class="string">&quot;tenant&quot;</span>);</span><br><span class="line">        tenant.setMedia(homeMedia);</span><br><span class="line">        <span class="comment">// 二房东</span></span><br><span class="line">        Colleague subLandlord = <span class="keyword">new</span> SubLandlord(<span class="string">&quot;sub-landlord&quot;</span>);</span><br><span class="line">        subLandlord.setMedia(homeMedia);</span><br><span class="line">        <span class="comment">// 房东</span></span><br><span class="line">        Colleague landlord = <span class="keyword">new</span> Landlord(<span class="string">&quot;landlord&quot;</span>);</span><br><span class="line">        landlord.setMedia(homeMedia);</span><br><span class="line">        tenant.send(<span class="string">&quot;sub-landlord&quot;</span>, <span class="string">&quot;我要租房子&quot;</span>);</span><br><span class="line">        subLandlord.send(<span class="string">&quot;landlord&quot;</span>, <span class="string">&quot;有人要租房子&quot;</span>);</span><br><span class="line">        landlord.send(<span class="string">&quot;sub-landlord&quot;</span>, <span class="string">&quot;你租吧&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>运行程序，输出结果：</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sub-landlord接受到消息：我要租房子</span><br><span class="line">landlord接受到消息：有人要租房子</span><br><span class="line">sub-landlord接受到消息：你租吧</span><br></pre></td></tr></table></figure><h1 id="应用场景"><a href="#应用场景" class="headerlink" title="应用场景"></a>应用场景</h1><ol><li>在分布式环境下，各种服务注册与发现组件，例如：Zookeeper，Nocas，Eruake等。</li></ol>]]></content>
-    
-    
-      
-      
-    <summary type="html">&lt;h1 id=&quot;什么是中介者模式&quot;&gt;&lt;a href=&quot;#什么是中介者模式&quot; class=&quot;headerlink&quot; title=&quot;什么是中介者模式&quot;&gt;&lt;/a&gt;什么是中介者模式&lt;/h1&gt;&lt;p&gt;&lt;strong&gt;中介者模式&lt;/strong&gt;：用一个中介者对象来封装一系列的对象交互，中介者</summary>
-      
-    
-    
-    
-    <category term="设计模式" scheme="https://lujaywang.github.io/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
-    
-    
     <category term="设计模式" scheme="https://lujaywang.github.io/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
-    
-    <category term="java" scheme="https://lujaywang.github.io/tags/java/"/>
     
   </entry>
   
@@ -88,9 +114,9 @@
     <category term="设计模式" scheme="https://lujaywang.github.io/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
     
     
-    <category term="设计模式" scheme="https://lujaywang.github.io/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
-    
     <category term="java" scheme="https://lujaywang.github.io/tags/java/"/>
+    
+    <category term="设计模式" scheme="https://lujaywang.github.io/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
     
   </entry>
   
@@ -114,9 +140,9 @@
     <category term="设计模式" scheme="https://lujaywang.github.io/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
     
     
-    <category term="设计模式" scheme="https://lujaywang.github.io/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
-    
     <category term="java" scheme="https://lujaywang.github.io/tags/java/"/>
+    
+    <category term="设计模式" scheme="https://lujaywang.github.io/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
     
   </entry>
   
@@ -140,9 +166,9 @@
     <category term="设计模式" scheme="https://lujaywang.github.io/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
     
     
-    <category term="设计模式" scheme="https://lujaywang.github.io/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
-    
     <category term="java" scheme="https://lujaywang.github.io/tags/java/"/>
+    
+    <category term="设计模式" scheme="https://lujaywang.github.io/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
     
   </entry>
   
@@ -166,9 +192,9 @@
     <category term="设计模式" scheme="https://lujaywang.github.io/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
     
     
-    <category term="设计模式" scheme="https://lujaywang.github.io/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
-    
     <category term="java" scheme="https://lujaywang.github.io/tags/java/"/>
+    
+    <category term="设计模式" scheme="https://lujaywang.github.io/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
     
   </entry>
   
@@ -192,9 +218,9 @@
     <category term="设计模式" scheme="https://lujaywang.github.io/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
     
     
-    <category term="设计模式" scheme="https://lujaywang.github.io/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
-    
     <category term="java" scheme="https://lujaywang.github.io/tags/java/"/>
+    
+    <category term="设计模式" scheme="https://lujaywang.github.io/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
     
   </entry>
   
@@ -218,9 +244,9 @@
     <category term="设计模式" scheme="https://lujaywang.github.io/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
     
     
-    <category term="设计模式" scheme="https://lujaywang.github.io/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
-    
     <category term="java" scheme="https://lujaywang.github.io/tags/java/"/>
+    
+    <category term="设计模式" scheme="https://lujaywang.github.io/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
     
   </entry>
   
@@ -244,9 +270,9 @@
     <category term="设计模式" scheme="https://lujaywang.github.io/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
     
     
-    <category term="设计模式" scheme="https://lujaywang.github.io/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
-    
     <category term="java" scheme="https://lujaywang.github.io/tags/java/"/>
+    
+    <category term="设计模式" scheme="https://lujaywang.github.io/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
     
   </entry>
   
@@ -270,9 +296,9 @@
     <category term="设计模式" scheme="https://lujaywang.github.io/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
     
     
-    <category term="设计模式" scheme="https://lujaywang.github.io/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
-    
     <category term="java" scheme="https://lujaywang.github.io/tags/java/"/>
+    
+    <category term="设计模式" scheme="https://lujaywang.github.io/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
     
   </entry>
   
@@ -296,9 +322,9 @@
     <category term="设计模式" scheme="https://lujaywang.github.io/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
     
     
-    <category term="设计模式" scheme="https://lujaywang.github.io/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
-    
     <category term="java" scheme="https://lujaywang.github.io/tags/java/"/>
+    
+    <category term="设计模式" scheme="https://lujaywang.github.io/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
     
   </entry>
   
@@ -322,9 +348,9 @@
     <category term="设计模式" scheme="https://lujaywang.github.io/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
     
     
-    <category term="设计模式" scheme="https://lujaywang.github.io/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
-    
     <category term="java" scheme="https://lujaywang.github.io/tags/java/"/>
+    
+    <category term="设计模式" scheme="https://lujaywang.github.io/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
     
   </entry>
   
@@ -348,9 +374,9 @@
     <category term="设计模式" scheme="https://lujaywang.github.io/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
     
     
-    <category term="设计模式" scheme="https://lujaywang.github.io/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
-    
     <category term="java" scheme="https://lujaywang.github.io/tags/java/"/>
+    
+    <category term="设计模式" scheme="https://lujaywang.github.io/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
     
   </entry>
   
@@ -374,9 +400,9 @@
     <category term="设计模式" scheme="https://lujaywang.github.io/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
     
     
-    <category term="设计模式" scheme="https://lujaywang.github.io/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
-    
     <category term="java" scheme="https://lujaywang.github.io/tags/java/"/>
+    
+    <category term="设计模式" scheme="https://lujaywang.github.io/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
     
   </entry>
   
@@ -400,9 +426,9 @@
     <category term="设计模式" scheme="https://lujaywang.github.io/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
     
     
-    <category term="设计模式" scheme="https://lujaywang.github.io/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
-    
     <category term="java" scheme="https://lujaywang.github.io/tags/java/"/>
+    
+    <category term="设计模式" scheme="https://lujaywang.github.io/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
     
   </entry>
   
@@ -426,9 +452,9 @@
     <category term="设计模式" scheme="https://lujaywang.github.io/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
     
     
-    <category term="设计模式" scheme="https://lujaywang.github.io/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
-    
     <category term="java" scheme="https://lujaywang.github.io/tags/java/"/>
+    
+    <category term="设计模式" scheme="https://lujaywang.github.io/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
     
   </entry>
   
@@ -453,9 +479,9 @@
     <category term="设计模式" scheme="https://lujaywang.github.io/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
     
     
-    <category term="设计模式" scheme="https://lujaywang.github.io/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
-    
     <category term="java" scheme="https://lujaywang.github.io/tags/java/"/>
+    
+    <category term="设计模式" scheme="https://lujaywang.github.io/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
     
   </entry>
   
@@ -503,37 +529,9 @@
     <category term="spring" scheme="https://lujaywang.github.io/categories/spring/"/>
     
     
-    <category term="java" scheme="https://lujaywang.github.io/tags/java/"/>
-    
     <category term="spring" scheme="https://lujaywang.github.io/tags/spring/"/>
     
-  </entry>
-  
-  <entry>
-    <title>MySQL的事务隔离级别及脏读、幻读、不可重复读</title>
-    <link href="https://lujaywang.github.io/2021/09/06/MySQL%E7%9A%84%E4%BA%8B%E5%8A%A1%E9%9A%94%E7%A6%BB%E7%BA%A7%E5%88%AB%E5%8F%8A%E8%84%8F%E8%AF%BB-%E5%B9%BB%E8%AF%BB-%E4%B8%8D%E5%8F%AF%E9%87%8D%E5%A4%8D%E8%AF%BB/"/>
-    <id>https://lujaywang.github.io/2021/09/06/MySQL%E7%9A%84%E4%BA%8B%E5%8A%A1%E9%9A%94%E7%A6%BB%E7%BA%A7%E5%88%AB%E5%8F%8A%E8%84%8F%E8%AF%BB-%E5%B9%BB%E8%AF%BB-%E4%B8%8D%E5%8F%AF%E9%87%8D%E5%A4%8D%E8%AF%BB/</id>
-    <published>2021-09-06T15:13:09.000Z</published>
-    <updated>2023-03-04T10:45:00.506Z</updated>
-    
-    <content type="html"><![CDATA[<h2 id="一-数据库事务的隔离级别"><a href="#一-数据库事务的隔离级别" class="headerlink" title="一 数据库事务的隔离级别"></a>一 数据库事务的隔离级别</h2><p>数据库事务的隔离级别有4个，由低到高依次为Read uncommitted 、Read committed 、Repeatable read 、Serializable ，这四个级别可以逐个解决脏读 、不可重复读 、幻读这几类问题。</p><p><img src="/images/MySQL%E7%9A%84%E4%BA%8B%E5%8A%A1%E9%9A%94%E7%A6%BB%E7%BA%A7%E5%88%AB%E5%8F%8A%E8%84%8F%E8%AF%BB-%E5%B9%BB%E8%AF%BB-%E4%B8%8D%E5%8F%AF%E9%87%8D%E5%A4%8D%E8%AF%BB/image-20210924174255294.png" alt="image-20210924174255294"></p><h3 id="1-Read-UnCommitted-读未提交"><a href="#1-Read-UnCommitted-读未提交" class="headerlink" title="1. Read UnCommitted(读未提交)"></a>1. Read UnCommitted(读未提交)</h3><p>最低的隔离级别。一个事务可以读取另一个事务并未提交的更新结果。</p><h3 id="2-Read-Committed-读提交"><a href="#2-Read-Committed-读提交" class="headerlink" title="2. Read Committed(读提交)"></a>2. Read Committed(读提交)</h3><p>大部分数据库采用的默认隔离级别。一个事务的更新操作结果只有在该事务提交之后，另一个事务才可以的读取到同一笔数据更新后的结果。</p><h3 id="3-Repeatable-Read-重复读"><a href="#3-Repeatable-Read-重复读" class="headerlink" title="3. Repeatable Read(重复读)"></a>3. Repeatable Read(重复读)</h3><p><strong>mysql的默认级别</strong>。整个事务过程中，对同一笔数据的读取结果是相同的，不管其他事务是否在对共享数据进行更新，也不管更新提交与否。</p><h3 id="4-Serializable-序列化"><a href="#4-Serializable-序列化" class="headerlink" title="4. Serializable(序列化)"></a>4. Serializable(序列化)</h3><p>最高隔离级别。所有事务操作依次顺序执行。注意这会导致并发度下降，性能最差。通常会用其他并发级别加上相应的并发锁机制来取代它。</p><h2 id="二-不同事务级别带来的并发问题"><a href="#二-不同事务级别带来的并发问题" class="headerlink" title="二 不同事务级别带来的并发问题"></a>二 不同事务级别带来的并发问题</h2><h3 id="1-脏读"><a href="#1-脏读" class="headerlink" title="1 脏读"></a>1 脏读</h3><p>脏读发生在一个事务A读取了被另一个事务B修改，但是还未提交的数据。假如B回退，则事务A读取的是无效的数据。这跟不可重复读类似，但是第二个事务不需要执行提交。 </p><p><img src="/images/MySQL%E7%9A%84%E4%BA%8B%E5%8A%A1%E9%9A%94%E7%A6%BB%E7%BA%A7%E5%88%AB%E5%8F%8A%E8%84%8F%E8%AF%BB-%E5%B9%BB%E8%AF%BB-%E4%B8%8D%E5%8F%AF%E9%87%8D%E5%A4%8D%E8%AF%BB/image-20210924174325543.png" alt="image-20210924174325543"></p><h3 id="2-不可重复读"><a href="#2-不可重复读" class="headerlink" title="2 不可重复读"></a>2 不可重复读</h3><p>在基于锁的并行控制方法中，如果在执行select时不添加读锁，就会发生不可重复读问题。</p><p><img src="/images/MySQL%E7%9A%84%E4%BA%8B%E5%8A%A1%E9%9A%94%E7%A6%BB%E7%BA%A7%E5%88%AB%E5%8F%8A%E8%84%8F%E8%AF%BB-%E5%B9%BB%E8%AF%BB-%E4%B8%8D%E5%8F%AF%E9%87%8D%E5%A4%8D%E8%AF%BB/image-20210924174341569.png" alt="image-20210924174341569"></p><p>在上面这个例子中，事务2提交成功，它所做的修改已经可见。然而，事务1已经读取了一个其它的值。在序列化和可重复读的隔离级别中，数据库管理系统会返回旧值，即在被事务2修改之前的值。在提交读和未提交读隔离级别下，可能会返回被更新的值，这就是“不可重复读”。</p><p>有两个策略可以防止这个问题的发生：</p><p>(1) 推迟事务2的执行，直至事务1提交或者回退。这种策略在使用锁时应用。</p><p>(2) 而在多版本并行控制中，事务2可以被先提交。而事务1，继续执行在旧版本的数据上。当事务1终于尝试提交时，数据库会检验它的结果是否和事务1、事务2顺序执行时一样。如果是，则事务1提交成功。如果不是，事务1会被回退。</p><p>3 <strong>幻读</strong> </p><p>幻读发生在当两个完全相同的查询执行时，第二次查询所返回的结果集跟第一个查询不相同。</p><p>发生的条件：没有范围锁。</p><p><img src="/images/MySQL%E7%9A%84%E4%BA%8B%E5%8A%A1%E9%9A%94%E7%A6%BB%E7%BA%A7%E5%88%AB%E5%8F%8A%E8%84%8F%E8%AF%BB-%E5%B9%BB%E8%AF%BB-%E4%B8%8D%E5%8F%AF%E9%87%8D%E5%A4%8D%E8%AF%BB/image-20210924174358118.png" alt="image-20210924174358118"></p><h2 id="三-例子比较不可重复读和幻读"><a href="#三-例子比较不可重复读和幻读" class="headerlink" title="三 例子比较不可重复读和幻读"></a>三 例子比较不可重复读和幻读</h2><h3 id="1-不可重复读"><a href="#1-不可重复读" class="headerlink" title="1 不可重复读"></a>1 不可重复读</h3><p>不可重复读的重点是修改: 同样的条件, 你读取过的数据, 再次读取出来发现值不一样了</p><p>例子:</p><p>在事务1中，Mary 读取了自己的工资为1000,操作并没有完成 </p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">con1 = getConnection();  </span><br><span class="line">select salary from employee empId =&quot;Mary&quot;;  </span><br></pre></td></tr></table></figure><p>在事务2中，这时财务人员修改了Mary的工资为2000,并提交了事务. </p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">con2 = getConnection();  </span><br><span class="line">update employee set salary = 2000;  </span><br><span class="line">con2.commit(); </span><br></pre></td></tr></table></figure><p>在事务1中，Mary 再次读取自己的工资时，工资变为了2000 </p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">select salary from employee empId =&quot;Mary&quot;; </span><br></pre></td></tr></table></figure><p>在一个事务中前后两次读取的结果并不致，导致了不可重复读。</p><h3 id="2-幻读"><a href="#2-幻读" class="headerlink" title="2 幻读"></a>2 幻读</h3><p>幻读的重点在于新增或者删除 (数据条数变化)。同样的条件, 第1次和第2次读出来的记录数不一样</p><p>例子：</p><p>目前工资为1000的员工有10人。<br>事务1,读取所有工资为1000的员工。 </p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">con1 = getConnection();  </span><br><span class="line">Select * from employee where salary =1000;  </span><br></pre></td></tr></table></figure><p>共读取10条记录 </p><p>这时另一个事务向employee表插入了一条员工记录，工资也为1000 </p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">con2 = getConnection();  </span><br><span class="line">Insert into employee(empId,salary) values(&quot;Lili&quot;,1000);  </span><br><span class="line">con2.commit();  </span><br></pre></td></tr></table></figure><p>事务1再次读取所有工资为1000的员工 </p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">select * from employee where salary =1000;  </span><br></pre></td></tr></table></figure><p>共读取到了11条记录，这就像产生了幻读。 </p>]]></content>
-    
-    
-      
-      
-    <summary type="html">&lt;h2 id=&quot;一-数据库事务的隔离级别&quot;&gt;&lt;a href=&quot;#一-数据库事务的隔离级别&quot; class=&quot;headerlink&quot; title=&quot;一 数据库事务的隔离级别&quot;&gt;&lt;/a&gt;一 数据库事务的隔离级别&lt;/h2&gt;&lt;p&gt;数据库事务的隔离级别有4个，由低到高依次为Read unco</summary>
-      
-    
-    
-    
-    <category term="数据库" scheme="https://lujaywang.github.io/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/"/>
-    
-    
-    <category term="MySQL" scheme="https://lujaywang.github.io/tags/MySQL/"/>
-    
-    <category term="数据库" scheme="https://lujaywang.github.io/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/"/>
-    
-    <category term="事务" scheme="https://lujaywang.github.io/tags/%E4%BA%8B%E5%8A%A1/"/>
+    <category term="java" scheme="https://lujaywang.github.io/tags/java/"/>
     
   </entry>
   
